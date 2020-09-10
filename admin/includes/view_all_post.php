@@ -1,14 +1,45 @@
            
+<!-- <?php
+if(isset($_POST['checkBoxesArray'])){
+   
 
+foreach ($_POST['checkBoxesArray'] as $checkBoxeValue) {
+   
+  echo  $bulk_options =$_POST['bulk_options'];
+
+
+}
+}
+
+
+?> -->
+
+
+<form action="" method="post"> </form>
             <table class="table table-bordered table-hover">
+
+         <div id ="bulkOptionsConainer" class="col-xs-4">
+                    
+           <select class="form-control" name="bulk_options" id="">               <option value="">Select Option</option>
+                         <option value="Published">Publish</option>
+                          <option value="draft">Draft</option>
+                           <option value="delete">Delete</option>
+
+                    </select>
+                </div>
+                <div class="col-xs-4">
+                <input type="submit" name="submit" class="btn btn-success" value="Apply">
+                <a class="btn btn-primary" href="add_post.php">Add New</a>
+            </div>
                 <thead>
                     <tr>
+                        <th><input id='selectAll' type="checkbox" name=""></th>
                         <th>Id</th>
                         <th>Author</th>
                         <th>Title</th>
                         <th>Categories</th>
                         <th>Status</th>
-                        <th>Images</th>
+                        <th>Images</th> 
                         <th>Tags</th>
                         <th>Comments</th>
                         <th>Date</th>
@@ -34,9 +65,13 @@ $post_comment_count = $row['post_comment_count'];
 $post_date = $row['post_date'];
 
 echo "<tr>";
+?>
+<td><input id='selectAll'  class='checkBoxes' type='checkbox' name='checkBoxesArray[]' value='<?php echo $post_id;?>'><td>
+    <?php
 echo"<td>$post_id</td>";
 echo"<td>$post_author</td>";
 echo"<td>$post_title</td>";
+
 
 $query = "SELECT * FROM categories WHERE cat_id=$post_category_id ";
  $select_categories_id = mysqli_query($connection, $query);
@@ -55,13 +90,14 @@ echo"<td>$post_tag</td>";
 echo"<td>$post_comment_count</td>";
 echo"<td>$post_date</td>";
 echo"<td><a href='posts.php?source=edit_post&p_id={$post_id};'>Edit</a></td>";
-echo"<td><a href='posts.php?delete={$post_id};'>Delete</a></td>";
+echo"<td><a onClick=\"javascript: return confirm('are you sure you want to delete');\" href='posts.php?delete={$post_id};'>Delete</a></td>";
 echo"</tr>";
 
 }
                     ?>
                 </tbody>
             </table>
+        </form>
             
 
     <?php 

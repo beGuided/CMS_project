@@ -4,7 +4,7 @@
 if(isset($_POST['Create_user'])){
 
 	//echo $_POST['Create_post'];
-echo $user_firstname = $_POST['user_firstname'];
+$user_firstname = $_POST['user_firstname'];
 $user_lastname = $_POST['user_lastname'];
 $user_role = $_POST['user_role'];
 
@@ -33,6 +33,7 @@ $Create_user_query= mysqli_query($connection, $query);
     ));
 }
 
+ echo "User Created" . " " . "<a href='users.php'>view users</a>";
 };
 
 ?>
@@ -73,7 +74,7 @@ $Create_user_query= mysqli_query($connection, $query);
          </div>
           <div class="form-group">
          <label for="post_tags">Password</label>
-          <input class="form-control" type="text" name="user_password">
+          <input class="form-control" type="Password" name="user_password">
          </div>
 
 
