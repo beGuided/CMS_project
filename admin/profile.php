@@ -1,32 +1,27 @@
+ 
+<?php include'includes/Admin_header.php'?>
+<?php include 'functions.php'?>
 
 <?php 
+if (isset($_SESSION['username'])) {
 
+   $username= $_SESSION['username'];
 
+   $query ="SELECT * FROM users WHERE username ='{$username}' ";
 
-if(isset($_GET['edit_user'])){
+   $select_user_profile_query = mysqli_query($connection, $query);
 
-$the_user_id= $_GET['edit_user'];
-
-
-
-
-
-
- $query = "SELECT * FROM users WHERE user_id= {$the_user_id} ";
- $select_users_query = mysqli_query($connection, $query);
-
- while ($row = mysqli_fetch_assoc($select_users_query)){
+ while ($row = mysqli_fetch_assoc($select_user_profile_query)) {
 $user_id = $row['user_id'];
-$username = $row['username'];
+$Username = $row['username'];
 $user_password = $row['user_password'];
 $user_firstname = $row['user_firstname'];
 $user_lastname = $row['user_lastname'];
 $user_email = $row['user_email'];
 $user_image = $row['user_image'];
-$user_role = $row['user_role'];}
-
-
-}
+$user_role = $row['user_role'];
+};
+};
 
 if(isset($_POST['edit_user'])){
 
@@ -51,26 +46,14 @@ $user_password = $_POST['user_password'];
 
 // pdate users query from the dadabase
 
-
-
-$query = "SELECT randSalt FROM users";
-$select_reandSalt_query= mysqli_query($connection, $query);
-
-if(!$select_reandSalt_query){
-    die("failed query" . mysqli_error($connection));
-}
-$row = mysqli_fetch_assoc($select_reandSalt_query);
-    $randSalt = $row['randSalt'];
-    $hashed_password = crypt($user_password, $randSalt);
-
 $query = "UPDATE users SET ";
 $query .="user_firstname= '{$user_firstname}', ";
 $query .="user_lastname= '{$user_lastname}', ";
 $query .="user_role= '{$user_role}', ";
 $query .="username= '{$username}', ";
 $query .="user_email= '{$user_email}', ";
-$query .="user_password= '{$hashed_password}' ";
-$query .="WHERE user_id= {$the_user_id}";
+$query .="user_password= '{$user_password}' ";
+$query .="WHERE username= '{$username}'";
 
 $Update_user = mysqli_query($connection, $query);
 
@@ -80,13 +63,36 @@ $Update_user = mysqli_query($connection, $query);
     ));
 };
 
-};
-?>
+}
 
-<form action="" method="post" enctype="multipart/form-data">
+
+ ?>
+
+
+
+    <div id="wrapper">
+
+
+
+        <!-- Navigation -->
+       <?php include'includes/Admin_navigation.php'?>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row"> 
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                           wellcome to admin
+                            <small>author</small>
+                        </h1>
+
+ <form action="" method="post" enctype="multipart/form-data">
        <div class="form-group">
-         <label for="post_author">Firstname</label>
-          <input class="form-control" type="text" name="user_firstname" value="<?php echo $user_firstname;?>">
+ <label for="post_author">Firstname</label>
+       <input class="form-control" type="text" name="user_firstname" value="<?php echo $user_firstname;?>">
          </div>
 
         <div class="form-group">
@@ -96,7 +102,7 @@ $Update_user = mysqli_query($connection, $query);
         <div class="form-group">
          <select name="user_role" id="user_role">
 
-          <option value="<?php echo $user_role; ?>"><?php echo $user_role; ?></option>
+          <option value="Subscriber"><?php echo $user_role; ?></option>
           <?php 
 
           if ($user_role == 'Admin') {
@@ -129,7 +135,7 @@ $Update_user = mysqli_query($connection, $query);
          </div>
           <div class="form-group">
          <label for="post_tags">Password</label>
-          <input class="form-control" type="text" name="user_password" value="<?php echo $user_password;?>">
+          <input class="form-control" type="Password" name="user_password" value="<?php echo $user_password;?>">
          </div>
 
 
@@ -138,32 +144,26 @@ $Update_user = mysqli_query($connection, $query);
 
   <div class="form-group">
          
-          <input class="btn-primary" type="submit" name="edit_user" value="update User">
+          <input class="btn-primary" type="submit" name="edit_user" value="update profile">
          </div>
 </form>
 
 
 
-<!-- <div class="form-group">
-         <select name="user_role" id="user_role">
-<?php 
 
-$query = "SELECT * FROM users";
- $select_user_role = mysqli_query($connection, $query);
 
- if(!$select_user_role){
+             </div>
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+
         
-    die('failed query'.mysql_error($connection));
-  };
 
- while ($row = mysqli_fetch_assoc($select_user_role)) {
-$user_id = $row['user_id'];
-$user_role = $row['user_role'];
 
-echo "<option value='{$user_id}'>{$user_role}</option>";
-}
-?>  
-
-         </select>
-</div>
-         -->
+        <!-- /#page-wrapper -->
+<?php include'includes/Admin_footer.php'?>
+    

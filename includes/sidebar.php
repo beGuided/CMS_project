@@ -26,7 +26,7 @@
                         <input name="username" type="text" class="form-control" placeholder="Eneter username">
                     </div>
                      <div class="input-group">
-                        <input name="password" type="text" class="form-control" placeholder="Eneter password">
+                        <input name="password" type="Password" class="form-control" placeholder="Eneter password">
                         <span class="input-group-btn">
                             <button class="btn btn-primary" name="login" type="submit" >Submit
                                 

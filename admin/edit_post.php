@@ -4,8 +4,8 @@
 if(isset($_GET['p_id'])){
 
 $the_post_id =$_GET['p_id'];
-
 }
+
 
  $query = "SELECT * FROM posts WHERE post_id=$the_post_id";
  $select_posts_by_id = mysqli_query($connection, $query);
@@ -59,13 +59,13 @@ $Update_Post = mysqli_query($connection, $query);
 
   if(!$Update_Post){
         
-    die('failed query'.mysqli_error($connection
+    die('failed query'. mysqli_error($connection
     ));
 };
 
+
+echo "<p class="bg-success">Post updated. <a href='../posts.php?p_id={$the_post_id}'>view Post</a></p>";
 }
-
-
 
 ?>
 

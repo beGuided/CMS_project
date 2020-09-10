@@ -52,8 +52,7 @@
                 <img class="img-responsive" src="images/<?php echo $post_image?>" alt="img">
                 <hr>
                 <p><?php echo $post_content ?></p>
-                <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-
+                
                     <hr>
 
 
@@ -66,10 +65,12 @@
 
 if (isset($_POST['create_comment'])) {
 
-    $the_post_id = $_GET['p_id'];
+ $the_post_id = $_GET['p_id'];
     $comment_author=$_POST['comment_author'];
     $comment_email=$_POST['comment_email'];
     $comment_content=$_POST['comment_content'];
+
+if(!empty($comment_author) && !empty($comment_email) && !empty($comment_content)){
 
     $query = "INSERT INTO comment(comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) ";
 
@@ -86,6 +87,11 @@ $query .= " WHERE post_id = $the_post_id";
 
 $update_comment_count =mysqli_query($connection, $query);
 
+}else{
+    echo "<script>alert('fields cannot be empty')</script>";
+}
+
+    
 };
 
  ?>
@@ -110,7 +116,7 @@ $update_comment_count =mysqli_query($connection, $query);
             </div>
 
             <div class="form-group">
-                <button type="submit" name="create_comment" class="btn_primary">submit</button>
+                <button type="submit" name="create_comment" class="btn btn_primary">submit</button>
             </div>
 
         </form>        
@@ -137,7 +143,7 @@ $comment_content = $row['comment_content'];
 $comment_author = $row['comment_author'];
 
 
-echo "<h1>steinr</h1>";
+
             ?> 
 
 
